@@ -41,14 +41,14 @@ export default defineConfig({
 2. 那此时要渲染的数据就可以根据上面的这些初始化数据计算得到
   visibleData：从原始数据中截取 startIndex 到 endIndex 的数据
 
-3. 滚动事件：
+- 滚动事件：
   当页面滚动时，要根据滚动的距离来计算 startIndex 和 endIndex，并重新渲染 visibleData
   1. 获取到 scrollTop 距离顶部的距离
   2. startIndex 计算：scrollTop / props.itemHeight
   3. endIndex 计算：startIndex + visibleCount
   4. startOffset 偏移量计算：scrollTop - scrollTop % props.itemHeight
 
-4. 偏移量值是用来计算得到滚动的值
+- 偏移量值是用来计算得到滚动的值
   之所以要减去 scrollTop % itemSize，是为了将 scrollTop 调整到一个与 itemHeight 对齐的位置，避免显示不完整的列表项
   如果 itemHeight 为 100px 的话，那 偏移量的到的值就是一个整数，这样能过更好的对齐
 

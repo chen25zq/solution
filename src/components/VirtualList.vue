@@ -53,14 +53,15 @@ const visibleData = computed(() =>
     props.listData.slice(startIndex.value, Math.min(endIndex.value, props.listData.length))
 );
 
-// 向下位移的距离
+// 向下位移的距离, 计算得到的偏移量能过更平滑的滚动效果
 const getTransform = computed(() => `translate3d(0, ${startOffset.value}px, 0)`)
 
 const handleScroll = () => {
-    // 滚动操作时更新各项数据
+    // 滚动操作时更新各项数据 当页面滚动时，要根据滚动的距离来计算 startIndex 和 endIndex，并重新渲染 visibleData
     let scrollTop = listRef.value.scrollTop;
     startIndex.value = Math.floor(scrollTop / props.itemSize);
     endIndex.value = startIndex.value + visibleCount.value;
+    // 之所以要减去 scrollTop % itemSize，是为了将 scrollTop 调整到一个与 itemHeight 对齐的位置(也就是 itemSize 的整数倍)，避免显示不完整的列表项
     startOffset.value = scrollTop - (scrollTop % props.itemSize);
 }
 
